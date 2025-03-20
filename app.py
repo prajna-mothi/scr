@@ -11,7 +11,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 import os
 import subprocess
 
-# Ensure Playwright Chromium is installed (avoids root permission errors)
+
+# Force Playwright to use the local app directory for browsers
+os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "0"
+
+# Install Playwright Chromium inside the app directory (bypasses system dependencies)
 if not os.path.exists("/home/appuser/.cache/ms-playwright"):
     try:
         subprocess.run(["playwright", "install", "chromium"], check=True)
