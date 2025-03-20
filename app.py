@@ -9,9 +9,12 @@ from utils import get_sitemap_urls, normalize_url
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 import os
+import subprocess
 
-if not os.path.exists("/root/.cache/ms-playwright"):
-    os.system("playwright install --with-deps")
+# Ensure Playwright browsers are installed on Streamlit Cloud
+if not os.path.exists("/home/appuser/.cache/ms-playwright"):
+    subprocess.run(["playwright", "install", "--with-deps"], check=True)
+
 
 
 async def get_unique_urls(url: str):
