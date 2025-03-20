@@ -8,6 +8,11 @@ from utils import get_sitemap_urls, normalize_url
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+import os
+
+if not os.path.exists("/root/.cache/ms-playwright"):
+    os.system("playwright install --with-deps")
+
 
 async def get_unique_urls(url: str):
     """Get unique URLs from both the sitemap and internal links, handling missing sitemaps."""
