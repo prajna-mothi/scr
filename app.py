@@ -11,9 +11,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 import os
 import subprocess
 
-# Ensure Playwright browsers are installed on Streamlit Cloud
+# Ensure Playwright Chromium is installed (avoids root permission errors)
 if not os.path.exists("/home/appuser/.cache/ms-playwright"):
-    subprocess.run(["playwright", "install", "--with-deps"], check=True)
+    try:
+        subprocess.run(["playwright", "install", "chromium"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Failed to install Playwright Chromium: {e}")
+
 
 
 
